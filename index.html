@@ -73,6 +73,13 @@
   a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
   a:hover{border-bottom-color:var(--accent)}
   .stair{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:14px; background:var(--code); border-radius:8px; padding:10px 12px; display:inline-block}
+  ul.recipe{margin:8px 0 6px}
+  ul.recipe li{margin:7px 0}
+  .brief{background:var(--code); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:16px 0 4px}
+  .brief-label{display:block; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:800; margin-bottom:9px}
+  .brief-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; line-height:1.55; white-space:pre-wrap; margin:0; color:var(--fg)}
+  .examples ol{margin:8px 0 12px; padding-left:20px}
+  .examples ol li{margin:6px 0}
   footer{color:var(--muted); font-size:13px; margin-top:34px; border-top:1px solid var(--line); padding-top:16px}
 </style>
 </head>
@@ -110,6 +117,26 @@
       <li>Garde une seule règle non négociable : l'agent qui a produit une idée ne la valide jamais lui-même. Toi seul tranches à la fin.</li>
     </ul>
 
+    <h3>Comment construire chaque casquette</h3>
+    <ul class="recipe">
+      <li><b>Le stratège</b> : il sort 2 ou 3 directions vraiment distinctes (pas des variantes), chacune avec son pari qui doit être vrai et sa métrique. Il n'invente jamais la demande, il la cherche.</li>
+      <li><b>Le challenger</b> : il doit essayer de casser, avec une preuve ou un test à l'appui, pas une opinion. Un seul challenger suffit s'il porte plusieurs chapeaux : les risques, la vraie raison inconfortable si ça marchait, et l'alternative qu'on ignore. C'est la distance entre les angles qui compte, pas le nombre d'agents.</li>
+      <li><b>L'expert du domaine</b> : il apporte les standards et les pièges connus du métier, et dit où le plan les rate. Reprends un spécialiste que tu as déjà, ne le réinvente pas.</li>
+    </ul>
+
+    <div class="brief">
+      <span class="brief-label">À copier dans ton Claude Code</span>
+<p class="brief-mono">Pour ce projet, ne réponds pas d'une seule voix. Joue un board de 3 rôles, chacun dans un passage séparé, puis laisse-moi trancher.
+
+1. STRATÈGE. Propose 2 ou 3 directions vraiment distinctes (pas des variantes). Pour chacune : l'angle, le pari qui doit être vrai, et la métrique qui la valide ou l'invalide. N'invente aucune donnée de demande ; si elle manque, dis-le.
+
+2. CHALLENGER (tu n'es pas le stratège, tu essaies de casser sa meilleure direction). Attaque depuis plusieurs chapeaux : les risques et pourquoi ça meurt, la vraie raison inconfortable si ça marchait, et l'alternative qu'on ignore ("pourquoi pas juste X"). Chaque attaque = une preuve ou un test à faire, jamais une opinion.
+
+3. EXPERT DU DOMAINE. Donne les standards du métier, les pièges connus, ce qui sépare un bon d'un mauvais outil ici, et dis où le plan les rate.
+
+Règle : celui qui produit une idée ne la valide jamais lui-même. Finis par les désaccords et une reco, et attends ma décision.</p>
+    </div>
+
     <div class="examples">
       <b>Nos deux cas réels.</b> Pour le SaaS de casting de créateurs (agence Ugency), le board avait un expert de l'outil de casting pour agences. Pour l'Ad Creative Engine, il avait un expert en stratégie créative (plus un marketeur DTC, un média buyer et un directeur artistique). Dans les deux cas, c'est le board qui a attrapé les trous, pas une relecture à l'œil.
     </div>
@@ -134,6 +161,18 @@
       <li>Utilise-la surtout en lecture et recherche (best practices, comparables, avis extérieur).</li>
       <li>Ramène uniquement les conclusions utiles dans la fenêtre de build.</li>
     </ul>
+
+    <p class="sub">C'est du cas par cas selon le projet d'à côté, mais tu peux partir de ce bloc et remplir les crochets.</p>
+    <div class="brief">
+      <span class="brief-label">Bloc à coller dans la fenêtre annexe</span>
+<p class="brief-mono">Tu es ma fenêtre de recherche, tu ne codes pas et tu ne touches à rien. Dans mon autre fenêtre, je construis ceci : [décris en 2 lignes ce que tu build].
+
+Ta mission : [la question exacte à creuser]. Cherche comment les meilleurs le font, les best practices, les pièges connus, et 2 ou 3 exemples concrets avec leurs sources.
+
+Puis challenge mon approche actuelle : qu'est-ce que je rate, quelle piste je n'explore pas, quel choix est risqué.
+
+Reste en lecture et recherche. Rends-moi seulement les conclusions actionnables, classées, avec les sources.</p>
+    </div>
   </section>
 
   <!-- 3 -->
@@ -168,11 +207,28 @@
     <p><span class="stair">règle &rarr; document de référence &rarr; commande &rarr; skill</span></p>
     <p>Résultat : le système devient un peu plus intelligent chaque semaine, sans que tes compétences changent.</p>
 
+    <div class="brief">
+      <span class="brief-label">À copier dans ton Claude Code</span>
+<p class="brief-mono">Avant d'exécuter, fais-moi un PLAN : le but, les critères de succès, les étapes, et surtout comment tu vérifieras que c'est vraiment bon. Pose-moi tes questions au lieu de supposer.
+
+Garde le contexte minimal et à haut signal, ne te gave pas d'infos inutiles.
+
+Ne me dis jamais "c'est fait" sur le premier jet. Prouve-le : un test, et pour tout ce qui est visible, une vérification dans un vrai navigateur. Si ça échoue, corrige et re-teste.
+
+À la fin, dis-moi quoi graver (une règle, un document, une commande) pour que ce problème ne revienne jamais.</p>
+    </div>
+
     <div class="rule">
       <b>Le modèle mental derrière tout ça :</b> un agent, c'est le modèle (le cerveau, que tu choisis) + le harness (Claude Code, que tu choisis) + la couche que tu construis par-dessus (règles, skills, hooks, connexions). Plus tu construis cette couche, plus le plafond monte. Même compétence, bâtiment plus haut.
     </div>
 
     <div class="examples">
+      <b>La marche à suivre pour ingérer une vidéo (c'est comme ça que cette boucle est arrivée dans le système).</b>
+      <ol>
+        <li>Installe une extension Chrome gratuite qui exporte le transcript YouTube (cherche "YouTube transcript" dans le Chrome Web Store).</li>
+        <li>Ouvre la vidéo, exporte le transcript, copie-le.</li>
+        <li>Colle-le dans Claude Code avec un brief court : "Digère ce transcript, sors les principes actionnables, et range-les dans mon système : une règle, un document, ou une nouvelle commande."</li>
+      </ol>
       Source de la boucle : podcast de Nate Herk avec Cole Medin, "How to Build Effective Claude Code Agents in 2026". <a href="https://www.youtube.com/watch?v=RzLV8sfFdMM" target="_blank" rel="noopener">youtube.com/watch?v=RzLV8sfFdMM</a>
     </div>
   </section>
