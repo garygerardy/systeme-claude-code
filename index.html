@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notre système de travail avec Claude Code</title>
+<style>
+  :root{
+    --bg:#faf9f7; --fg:#1c1a17; --muted:#6b665e; --line:#e5e1da;
+    --card:#ffffff; --accent:#b4530a; --accent-soft:#fbeee2; --code:#f2efe9;
+    --maxw:760px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#141311; --fg:#eceae6; --muted:#9d978c; --line:#2c2a26;
+      --card:#1c1b18; --accent:#e8823a; --accent-soft:#2a1d10; --code:#232120;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#faf9f7; --fg:#1c1a17; --muted:#6b665e; --line:#e5e1da;
+    --card:#ffffff; --accent:#b4530a; --accent-soft:#fbeee2; --code:#f2efe9;
+  }
+  :root[data-theme="dark"]{
+    --bg:#141311; --fg:#eceae6; --muted:#9d978c; --line:#2c2a26;
+    --card:#1c1b18; --accent:#e8823a; --accent-soft:#2a1d10; --code:#232120;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:56px 22px 80px}
+  header.top{margin-bottom:14px}
+  .kicker{color:var(--accent); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 10px}
+  h1{font-size:30px; line-height:1.2; margin:0 0 14px; letter-spacing:-.01em}
+  .lede{color:var(--muted); font-size:17px; margin:0 0 8px}
+  .meta{color:var(--muted); font-size:13px; margin-top:18px; padding-top:14px; border-top:1px solid var(--line)}
+  section.block{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:24px 22px; margin:26px 0;
+  }
+  .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:8px; background:var(--accent-soft);
+    color:var(--accent); font-weight:800; font-size:15px; margin-right:10px; vertical-align:middle;
+  }
+  h2{font-size:21px; margin:0 0 6px; letter-spacing:-.01em; display:flex; align-items:center; gap:2px}
+  h2 .t{vertical-align:middle}
+  .sub{color:var(--muted); font-size:14px; margin:0 0 16px}
+  h3{font-size:13px; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); margin:20px 0 6px}
+  p{margin:0 0 12px}
+  ul{margin:0 0 12px; padding-left:20px}
+  li{margin:5px 0}
+  b{font-weight:700}
+  code{background:var(--code); padding:1.5px 6px; border-radius:6px; font-size:13.5px; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .flow{
+    display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px;
+  }
+  .step{
+    background:var(--accent-soft); color:var(--accent); border:1px solid var(--line);
+    border-radius:9px; padding:8px 12px; font-weight:700; font-size:14px; flex:1 1 120px; text-align:center;
+  }
+  .quote{
+    border-left:3px solid var(--accent); padding:2px 0 2px 14px; margin:2px 0 12px;
+    color:var(--fg); font-style:italic;
+  }
+  .rule{
+    background:var(--accent-soft); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; margin:14px 0 4px; font-size:14.5px;
+  }
+  .examples{border-top:1px solid var(--line); margin-top:16px; padding-top:14px; font-size:14.5px; color:var(--muted)}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--accent)}
+  .stair{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:14px; background:var(--code); border-radius:8px; padding:10px 12px; display:inline-block}
+  footer{color:var(--muted); font-size:13px; margin-top:34px; border-top:1px solid var(--line); padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <p class="kicker">Méthode Claude Code</p>
+    <h1>Trois choses qui donnent de meilleurs résultats que Claude Code brut</h1>
+    <p class="lede">On ne joue pas à la machine à sous avec l'IA. On dirige. Le levier n'est pas de mieux prompter, c'est de construire un système autour du modèle. Voici les trois pièces qu'on a mises en place, dans l'ordre où elles comptent.</p>
+    <p class="meta">Pour répliquer : chaque bloc dit ce que c'est, pourquoi ça vaut mieux, et comment le refaire chez toi.</p>
+  </header>
+
+  <!-- 1 -->
+  <section class="block">
+    <h2><span class="num">1</span><span class="t">Le comité</span></h2>
+    <p class="sub">Un board qui challenge tes propositions avant que tu ne les exécutes.</p>
+
+    <p>Sur un projet ambitieux ou un outil conséquent, on ne laisse pas une seule voix (celle de l'IA ou la tienne) décider seule. On convoque un board de trois rôles minimum :</p>
+    <ul>
+      <li><b>Le stratège</b> : il propose 2 ou 3 directions distinctes, avec pour chacune le pari et la métrique de succès.</li>
+      <li><b>Le challenger (red-team)</b> : il attaque la direction retenue. Où ça meurt, quelle hypothèse cachée, pourquoi pas juste faire X. Il exige des preuves, pas de la rhétorique.</li>
+      <li><b>L'expert du domaine</b> : celui qui connaît le type d'outil qu'on construit et qui peut nous guider. C'est lui qui rattrape les détails métier qu'un généraliste rate.</li>
+    </ul>
+
+    <div class="rule"><b>La règle d'or :</b> celui qui produit n'est jamais celui qui vérifie. Le board informe, l'humain décide. Jamais de vote, jamais de tampon automatique. Le juge du bien-fait, c'est le board adverse, pas ton œil.</div>
+
+    <h3>Pourquoi c'est mieux</h3>
+    <p>Une IA seule te donne un premier jet plausible et confiant. Un board te donne un jet qui a déjà survécu à une attaque. Tu ne pars pas dans une direction juste parce qu'elle sonnait bien.</p>
+
+    <h3>Comment le répliquer</h3>
+    <ul>
+      <li>Crée trois agents (ou trois prompts) à points de vue vraiment distincts : stratège, challenger, expert du domaine.</li>
+      <li>Fais-les tourner en chaîne : le stratège propose, le challenger casse, l'expert valide la faisabilité métier.</li>
+      <li>Garde une seule règle non négociable : l'agent qui a produit une idée ne la valide jamais lui-même. Toi seul tranches à la fin.</li>
+    </ul>
+
+    <div class="examples">
+      <b>Nos deux cas réels.</b> Pour le SaaS de casting de créateurs (agence Ugency), le board avait un expert de l'outil de casting pour agences. Pour l'Ad Creative Engine, il avait un expert en stratégie créative (plus un marketeur DTC, un média buyer et un directeur artistique). Dans les deux cas, c'est le board qui a attrapé les trous, pas une relecture à l'œil.
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="block">
+    <h2><span class="num">2</span><span class="t">La fenêtre annexe</span></h2>
+    <p class="sub">Une deuxième fenêtre ouverte à côté, pour explorer pendant que la principale exécute.</p>
+
+    <p>Pendant qu'une fenêtre Claude Code construit l'outil, on en ouvre une seconde à côté. Elle ne code pas. Elle sert d'avis extérieur et de moteur de recherche : comment les autres font ce qu'on est en train de faire, quelles sont les best practices, où sont les pièges connus.</p>
+
+    <p>La fenêtre de build reste dans l'exécution. La fenêtre annexe reste dans l'exploration. On ne mélange pas les deux, et on rapporte seulement les conclusions dans la fenêtre de build.</p>
+
+    <h3>Pourquoi c'est mieux</h3>
+    <p>Une seule fenêtre qui build ET qui cherche en même temps sature son contexte et perd le fil. En séparant, la fenêtre de build reste concentrée et propre, et la recherche va plus loin sans polluer le travail en cours.</p>
+
+    <h3>Comment le répliquer</h3>
+    <ul>
+      <li>Ouvre une seconde session Claude Code en parallèle.</li>
+      <li>Colle-lui un court brief de départ : ce qu'on construit dans l'autre fenêtre, et la question exacte à creuser.</li>
+      <li>Utilise-la surtout en lecture et recherche (best practices, comparables, avis extérieur).</li>
+      <li>Ramène uniquement les conclusions utiles dans la fenêtre de build.</li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section class="block">
+    <h2><span class="num">3</span><span class="t">Le système de réflexion</span></h2>
+    <p class="sub">Une boucle en quatre temps pour disséquer chaque problème, puis un système qui s'améliore tout seul.</p>
+
+    <p>Sur toute tâche non triviale, on suit la même boucle répétable au lieu de prompter au hasard. Quatre temps, le dernier est le plus important sur la durée :</p>
+
+    <div class="flow">
+      <div class="step">Plan</div>
+      <div class="step">Context</div>
+      <div class="step">Verify</div>
+      <div class="step">Evolve</div>
+    </div>
+
+    <h3>Plan</h3>
+    <p class="quote">Le plan est l'endroit le moins cher pour se tromper.</p>
+    <p>On planifie avant d'exécuter, et on passe plus de temps sur le plan que sur le build. But, critères de succès, points d'intégration, liste de tâches, et surtout la stratégie de vérification.</p>
+
+    <h3>Context</h3>
+    <p class="quote">La bonne info, pas toute l'info. L'attention est rare.</p>
+    <p>On donne le plus petit ensemble de tokens à haut signal, jamais le plus gros. Passé un certain volume, le modèle sature et rate l'évident (sa "dumb zone", autour de 250k tokens sur Opus). Si le modèle a l'air bête, on suspecte le contexte gavé avant le modèle.</p>
+
+    <h3>Verify</h3>
+    <p class="quote">Ne jamais croire le premier jet. On juge chaque sortie.</p>
+    <p>On ne fait pas confiance au premier résultat. On met une barrière à chaque sortie (code, contenu, données), et pour tout ce qui est publié ou visuel, la vraie preuve est une vérification dans un vrai navigateur, pas le code source. Échec, on corrige, on re-teste.</p>
+
+    <h3>Evolve</h3>
+    <p class="quote">Chaque bug devient un upgrade permanent. Le plancher monte.</p>
+    <p>À chaque problème, on ne corrige pas juste le bug : on grave la correction dans le système pour qu'il ne revienne jamais. On monte l'escalier du plus léger au plus structurant :</p>
+    <p><span class="stair">règle &rarr; document de référence &rarr; commande &rarr; skill</span></p>
+    <p>Résultat : le système devient un peu plus intelligent chaque semaine, sans que tes compétences changent.</p>
+
+    <div class="rule">
+      <b>Le modèle mental derrière tout ça :</b> un agent, c'est le modèle (le cerveau, que tu choisis) + le harness (Claude Code, que tu choisis) + la couche que tu construis par-dessus (règles, skills, hooks, connexions). Plus tu construis cette couche, plus le plafond monte. Même compétence, bâtiment plus haut.
+    </div>
+
+    <div class="examples">
+      Source de la boucle : podcast de Nate Herk avec Cole Medin, "How to Build Effective Claude Code Agents in 2026". <a href="https://www.youtube.com/watch?v=RzLV8sfFdMM" target="_blank" rel="noopener">youtube.com/watch?v=RzLV8sfFdMM</a>
+    </div>
+  </section>
+
+  <footer>
+    Les trois pièces marchent ensemble : le comité tranche la direction, la fenêtre annexe nourrit la recherche, et la boucle Plan / Context / Verify / Evolve fait monter le plancher à chaque tour.
+  </footer>
+
+</div>
+</body>
+</html>
