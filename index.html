@@ -50,6 +50,9 @@
   p{margin:0 0 12px}
   b{font-weight:700}
   .phase{margin:6px 0}
+  ul.exp{margin:10px 0 4px; padding-left:20px}
+  ul.exp li{margin:7px 0}
+  .nb{font-size:14px; color:var(--muted); margin:12px 0 2px; padding:8px 0 8px 12px; border-left:3px solid var(--accent)}
   .flow{display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 16px}
   .step{
     background:var(--accent-soft); color:var(--accent); border:1px solid var(--line);
@@ -61,7 +64,7 @@
   }
   .brief{background:var(--code); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:14px 0 4px}
   .brief-label{display:block; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:800; margin-bottom:9px}
-  .brief-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; line-height:1.55; white-space:pre-wrap; margin:0; color:var(--fg)}
+  .brief-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; line-height:1.6; white-space:pre-wrap; margin:0; color:var(--fg)}
   .note{border-top:1px solid var(--line); margin-top:16px; padding-top:14px; font-size:14.5px; color:var(--muted)}
   .note ol{margin:8px 0 10px; padding-left:20px}
   .note li{margin:6px 0}
@@ -84,40 +87,86 @@
   <!-- 1 -->
   <section class="block">
     <h2><span class="num">1</span><span class="t">Le comité</span></h2>
-    <p><b>L'idée.</b> L'IA seule te sort un premier jet plausible et confiant, donc tu risques de foncer dans une direction juste parce qu'elle sonnait bien. Le comité règle ça : au lieu d'une voix, trois rôles opposés se challengent avant que tu décides. Un stratège propose, un challenger casse, un expert du domaine rattrape les détails du métier. Celui qui produit une idée ne la valide jamais, et c'est toi qui tranches. Résultat : tu avances avec une direction qui a déjà survécu à une attaque, pas avec un premier jet.</p>
+    <p><b>L'idée.</b> Au lieu d'un seul avis, tu fais jouer à Claude trois rôles vraiment opposés dans la même réponse. Chacun regarde ton projet d'un angle incompatible avec les autres, et c'est toi qui tranches à la fin.</p>
+    <ul class="exp">
+      <li><b>Le stratège</b> propose 2 ou 3 directions distinctes, chacune avec le pari qui doit être vrai et la métrique qui la valide.</li>
+      <li><b>Le challenger</b> attaque avec les chapeaux de réflexion d'Edward de Bono : le noir cherche ce qui tue le projet, le jaune joué à l'envers cherche la vraie raison si ça marchait, le vert cherche l'alternative qu'on n'a pas envisagée.</li>
+      <li><b>L'expert du domaine</b> juge selon les vrais standards du métier et pointe où le plan les rate.</li>
+    </ul>
+    <p class="nb"><b>NB.</b> Ce qui fait la qualité, c'est la distance entre les angles, pas le nombre de voix. Deux règles dures : le rôle qui produit une idée ne la valide jamais, et chaque attaque doit tenir sur une preuve ou un test, jamais sur une opinion.</p>
 
     <div class="brief">
       <span class="brief-label">À coller dans ton Claude Code</span>
-<p class="brief-mono">Tu es mon comité projet. Pour ce que je te donne plus bas, ne réponds jamais d'une seule voix : tu joues toi-même trois rôles opposés, chacun dans sa propre section, puis tu t'arrêtes et tu attends que je tranche.
+<p class="brief-mono">Tu vas jouer un comité de trois rôles opposés sur mon projet. Tu produis les trois sections dans une seule réponse, puis tu t'arrêtes et tu attends ma décision. Tu n'exécutes rien, tu ne codes rien, tu ne choisis pas à ma place.
 
-RÔLE 1, LE STRATÈGE. Propose 2 ou 3 directions vraiment distinctes (pas des variantes d'une même idée). Pour chacune : l'angle, le pari qui doit être vrai pour qu'elle marche, et la métrique qui la validerait ou l'enterrerait. Tu n'inventes aucune donnée de marché ; si elle manque, tu le dis.
+Règles qui valent pour tout le comité :
+- Le rôle qui produit une idée ne la valide jamais lui-même. Production et critique sont séparées.
+- Aucune donnée de marché inventée. Si un chiffre te manque, dis-le clairement et propose comment le vérifier (source, test, question à poser).
+- Chaque affirmation forte s'appuie sur une preuve OU sur un test concret à faire. Pas d'opinion sèche.
+- Écris simple et direct, pour être compris, pas pour être stylé.
 
-RÔLE 2, LE CHALLENGER. Ton job n'est pas de défendre le stratège, c'est de casser sa meilleure direction. Attaque-la depuis trois angles opposés : les risques et pourquoi ça peut mourir, la vraie raison inconfortable si jamais ça marchait, et l'alternative qu'on ignore ("pourquoi pas juste X ?"). Chaque attaque s'appuie sur une preuve ou sur un test concret à faire, jamais sur une opinion.
+RÔLE 1 - LE STRATÈGE
+Propose 2 à 3 directions vraiment distinctes (pas des variantes de la même idée). Pour chacune :
+- l'angle en une phrase (en quoi cette direction est différente des autres),
+- le pari qui doit être vrai pour qu'elle marche (l'hypothèse cachée),
+- la métrique unique qui la valide ou l'enterre, et le seuil à partir duquel tu tranches.
+Ne classe pas les directions, ne dis pas laquelle est la meilleure. Tu proposes, tu ne juges pas.
 
-RÔLE 3, L'EXPERT DU DOMAINE. Joue un vrai spécialiste du type de projet en question. Donne les standards du métier, les pièges connus, ce qui sépare un bon d'un mauvais, et pointe précisément où le plan les rate.
+RÔLE 2 - LE CHALLENGER (méthode des chapeaux de De Bono)
+Attaque les directions du Stratège en appliquant explicitement trois chapeaux, un à la fois :
+- Chapeau noir (risques) : les modes d'échec, ce qui casse, pourquoi ça meurt. Le scénario concret où ça se plante.
+- Chapeau jaune joué à l'envers : si ça marchait, quelle serait la VRAIE raison, y compris la raison inconfortable (pas la raison flatteuse qu'on aime se raconter).
+- Chapeau vert (alternative ignorée) : la piste qu'on n'a pas mise sur la table. Formule-la en "pourquoi pas juste X ?".
+Pour chaque attaque : appuie-la sur une preuve OU sur un test concret à faire, et gradue-la en fatal / sérieux / mineur. Une attaque sans preuve ni test proposé ne compte pas, retire-la.
 
-RÈGLE UNIQUE : le rôle qui produit une idée ne la valide jamais lui-même. Finis par les points de désaccord entre les trois rôles et ta recommandation, puis arrête-toi et attends ma décision.
+RÔLE 3 - L'EXPERT DU DOMAINE
+Joue un vrai spécialiste du type de projet décrit ci-dessous (nomme le métier que tu incarnes). Donne :
+- les standards du métier sur ce genre de projet (comment les bons font),
+- les pièges connus que les débutants ne voient pas,
+- ce qui sépare concrètement un bon d'un mauvais résultat ici,
+- les endroits précis où mon plan actuel rate ces standards.
 
-Le projet : [décris ton projet ou ta décision en quelques lignes].</p>
+SYNTHÈSE FINALE
+- Liste les points de désaccord réels entre les trois rôles (là où ils se contredisent).
+- Donne une recommandation argumentée en t'appuyant sur ce qui est ressorti.
+- Puis STOP. Tu attends ma décision avant toute suite.
+
+[décris ton projet ou ta décision]</p>
     </div>
 
-    <p class="note">Un seul challenger qui porte plusieurs chapeaux (les risques, la raison inconfortable, l'alternative) vaut mieux que six agents séparés : c'est la distance entre les angles qui compte, pas le nombre d'agents. Nos deux cas réels : un SaaS de casting de créateurs, avec un expert de l'outil de casting pour agences ; l'Ad Creative Engine, avec un expert en stratégie créative. Dans les deux, c'est le comité qui a attrapé les trous, pas une relecture à l'œil.</p>
+    <p class="note">Nos deux cas réels : un SaaS de casting de créateurs, avec un expert de l'outil de casting pour agences ; l'Ad Creative Engine, avec un expert en stratégie créative. Dans les deux, c'est le comité qui a attrapé les trous, pas une relecture à l'œil.</p>
   </section>
 
   <!-- 2 -->
   <section class="block">
     <h2><span class="num">2</span><span class="t">La fenêtre annexe</span></h2>
-    <p><b>L'idée.</b> Une seule fenêtre qui construit et qui cherche en même temps sature son contexte et perd le fil. Donc tu ouvres une deuxième fenêtre à côté qui ne code pas : elle fait la recherche, l'avis extérieur, les best practices, les pièges connus. La fenêtre de build reste concentrée et propre, la recherche va plus loin, et tu ne ramènes que les conclusions utiles. Tu construis mieux parce que tu ne mélanges plus exécuter et explorer.</p>
+    <p><b>L'idée.</b> Pendant qu'une fenêtre construit, tu en ouvres une deuxième à côté qui ne fait que chercher et challenger de l'extérieur.</p>
+    <ul class="exp">
+      <li>Elle ne code pas et ne touche à rien : recherche, bonnes pratiques, comparables réels avec leurs sources.</li>
+      <li>Elle challenge ton approche : ce qui manque, la piste que tu n'as pas explorée, le choix risqué.</li>
+      <li>Tu ne ramènes que les conclusions utiles, classées et sourcées, dans ta fenêtre de build.</li>
+    </ul>
+    <p class="nb"><b>NB.</b> La fenêtre qui code défend naturellement ses propres choix. Une fenêtre neuve, elle, voit ce qui manque. C'est pour ça qu'on sépare exécuter et explorer.</p>
 
     <div class="brief">
       <span class="brief-label">À coller dans la deuxième fenêtre</span>
-<p class="brief-mono">Tu es ma fenêtre de recherche, tu ne codes pas et tu ne touches à rien. Dans mon autre fenêtre, je construis ceci : [décris en 2 lignes ce que tu build].
+<p class="brief-mono">Tu es ma fenêtre de recherche et d'avis extérieur. Tu ne codes pas, tu ne modifies aucun fichier, tu ne touches à rien. Ton seul travail : chercher, comparer, sourcer, et challenger mon approche depuis l'extérieur.
 
-Ta mission : [la question exacte à creuser]. Cherche comment les meilleurs le font, les best practices, les pièges connus, et 2 ou 3 exemples concrets avec leurs sources.
+Contexte : dans une autre fenêtre je construis [ce que tu construis dans l'autre fenêtre].
+Question exacte à creuser : [la question exacte à creuser].
 
-Puis challenge mon approche actuelle : qu'est-ce que je rate, quelle piste je n'explore pas, quel choix est risqué.
+Fais ceci, dans l'ordre :
+1. Recherche les bonnes pratiques établies sur ce sujet, et les comparables réels (qui fait ça bien, comment). Cite tes sources (nom + lien ou référence vérifiable). Si une info n'est pas sourçable, dis-le au lieu de l'affirmer.
+2. Challenge mon approche actuelle : ce qui manque, la piste que je n'ai pas explorée, le choix qui est risqué et pourquoi. Sois franc, c'est le but de cette fenêtre.
+3. Ne me rends QUE des conclusions actionnables. Pour chacune :
+   - la conclusion en une phrase (ce que je devrais faire ou vérifier),
+   - la source qui la soutient,
+   - un niveau de confiance (solide / à confirmer / incertain).
+   Classe-les de la plus importante à la moins importante.
 
-Reste en lecture et recherche. Rends-moi seulement les conclusions actionnables, classées, avec les sources.</p>
+Ne me raconte pas ta démarche ni tout ce que tu as lu. Va droit aux conclusions classées et sourcées.
+
+Variante à utiliser en fin de build (critique de complétude) : remplace la mission ci-dessus par : "Voici ce que j'ai construit : [colle ou décris le résultat]. Sans rien réécrire, dis-moi ce qui manque par rapport aux standards du domaine, ce qui va casser en usage réel, et ce qu'un expert me reprocherait. Rends une liste classée par gravité (bloquant / sérieux / mineur), chaque point avec sa source ou le test concret pour le vérifier."</p>
     </div>
   </section>
 
@@ -142,13 +191,30 @@ Reste en lecture et recherche. Rends-moi seulement les conclusions actionnables,
 
     <div class="brief">
       <span class="brief-label">À coller dans ton Claude Code</span>
-<p class="brief-mono">Avant d'exécuter cette tâche, fais-moi un PLAN : le but, les critères de succès, les étapes, et surtout comment tu vérifieras que c'est vraiment bon. Pose-moi tes questions au lieu de supposer.
+<p class="brief-mono">Avant d'exécuter la tâche que je vais te donner, tu suis cette boucle en quatre temps. Tu ne sautes aucun temps.
 
-Garde le contexte minimal et à haut signal, ne te gave pas d'infos inutiles.
+1. PLAN
+Sors un plan court avant de toucher à quoi que ce soit :
+- le but précis (ce qui doit être vrai à la fin),
+- les critères de succès (comment on saura que c'est réussi, en termes concrets),
+- les étapes,
+- et surtout la stratégie de vérification : comment tu vas PROUVER que chaque partie marche.
+Si quelque chose est ambigu ou te manque, pose-moi tes questions maintenant au lieu de supposer. Attends mes réponses avant d'exécuter si une réponse change le plan.
 
-Ne me dis jamais "c'est fait" sur le premier jet. Prouve-le : un test, et pour tout ce qui est visible, une vérification dans un vrai navigateur. Si ça échoue, corrige et re-teste.
+2. CONTEXT
+Garde un contexte minimal et à haut signal. Ne charge et ne relis que ce qui sert vraiment à cette tâche. Si tu sens que tu accumules du bruit, dis-le et resserre.
 
-À la fin, dis-moi quoi graver (une règle, un document, une commande) pour que ce problème ne revienne jamais.</p>
+3. VERIFY
+Ne dis jamais "c'est fait", "ça marche" ou "déployé" sur ton premier jet.
+- Prouve chaque résultat par un test concret (commande, sortie de test, cas d'usage réel).
+- Pour tout ce qui est visible ou déployé, vérifie dans un vrai navigateur, pas seulement dans le code source.
+- Si un test échoue, corrige et re-teste. Tu boucles jusqu'à ce que la preuve soit là.
+- Montre-moi la preuve, pas juste ta conclusion. Si tu ne peux pas prouver quelque chose, dis "je n'ai pas pu vérifier ceci" au lieu de l'affirmer.
+
+4. EVOLVE
+À la fin, dis-moi ce qui a cassé ou tâtonné pendant la tâche, et ce qu'il faut graver pour que ça ne revienne plus : une règle, une note de doc, ou une commande réutilisable. Propose le texte exact à enregistrer.
+
+Voici la tâche : [décris ta tâche]</p>
     </div>
 
     <div class="note">
